@@ -34,3 +34,13 @@ test('Verify that user is unable to registrated with Invalid password', async ({
 
   await expect(page.getByTestId('form-error-msg')).toHaveText('Invalid username or password.');
 });
+
+test('Verify that user unable to registrate with invalid username', async ({ page }) => {
+  await page.getByTestId('username-field').getByTestId('input').click();
+  await page.getByTestId('username-field').getByTestId('input').fill('qwer');
+  await page.getByTestId('password-field').getByTestId('input').click();
+  await page.getByTestId('password-field').getByTestId('input').fill('123');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+
+  await expect(page.getByTestId('form-error-msg')).toHaveText('Invalid username or password.');
+});
